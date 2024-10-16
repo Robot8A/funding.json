@@ -71,6 +71,7 @@
             margin-bottom: 2px;
         }
         h2, h3 {
+            margin-top: 4px;
             margin-bottom: 20px;
         }
         .section {
@@ -241,7 +242,7 @@
                 
                 <label for="projectTags" class="required">Tags (comma separated, up to 10)</label>
                 <input type="text" class="projectTags" required placeholder="programming, developer-tools">
-    `;
+            `;
             container.appendChild(newProject);
         }
 
@@ -251,25 +252,25 @@
             const newChannel = document.createElement('div');
             newChannel.classList.add('channel-section');
             newChannel.innerHTML = `
-                        <h3>Channel</h3>
-                        <label for="fundingChannelGuid" class="required">GUID</label>
-                        <input type="text" class="fundingChannelGuid" maxlength="32" pattern="^[a-z0-9-]+$" required placeholder="mybank, my-paypal">
-        
-                        <label for="fundingChannelType" class="required">Type</label>
-                        <select class="fundingChannelType" required>
-                            <option value="">Select Type</option>
-                            <option value="bank">Bank</option>
-                            <option value="gateway">Gateway</option>
-                            <option value="cheque">Cheque</option>
-                            <option value="cash">Cash</option>
-                            <option value="other">Other</option>
-                        </select>
-        
-                        <label for="fundingChannelAddress">Address</label>
-                        <input type="text" class="fundingChannelAddress" maxlength="250" placeholder="Account: 12345 (branch: ABCX)">
-                        
-                        <label for="fundingChannelDescription">Description</label>
-                        <textarea class="fundingChannelDescription" maxlength="500" placeholder="Additional description or instructions for the payment channel"></textarea>
+                <h3>Channel</h3>
+                <label for="fundingChannelGuid" class="required">GUID</label>
+                <input type="text" class="fundingChannelGuid" maxlength="32" pattern="^[a-z0-9-]+$" required placeholder="mybank, my-paypal">
+
+                <label for="fundingChannelType" class="required">Type</label>
+                <select class="fundingChannelType" required>
+                    <option value="">Select Type</option>
+                    <option value="bank">Bank</option>
+                    <option value="gateway">Gateway</option>
+                    <option value="cheque">Cheque</option>
+                    <option value="cash">Cash</option>
+                    <option value="other">Other</option>
+                </select>
+
+                <label for="fundingChannelAddress">Address</label>
+                <input type="text" class="fundingChannelAddress" maxlength="250" placeholder="Account: 12345 (branch: ABCX)">
+                
+                <label for="fundingChannelDescription">Description</label>
+                <textarea class="fundingChannelDescription" maxlength="500" placeholder="Additional description or instructions for the payment channel"></textarea>
             `;
             container.appendChild(newChannel);
         }
@@ -281,42 +282,42 @@
             const newPlan = document.createElement('div');
             newPlan.classList.add('plan-section');
             newPlan.innerHTML = `
-                    <h3>Plan</h3>
-                    <label for="planGuid" class="required">GUID</label>
-                    <input type="text" class="planGuid" maxlength="32" pattern="^[a-z0-9-]+$" required placeholder="mybank, paypal">
-                    
-                    <label for="planStatus" class="required">Status</label>
-                    <select class="planStatus" required>
-                        <option value="">Select Status</option>
-                        <option value="active">Active</option>
-                        <option value="inactive">Inactive</option>
-                    </select>
-    
-                    <label for="planName" class="required">Name</label>
-                    <input type="text" class="planName" required placeholder="Starter support plan, Infra hosting, Monthly funding plan">
-                    
-                    <label for="planDescription">Description</label>
-                    <textarea class="planDescription" placeholder="Additional description or instructions for the funding plan"></textarea>
-                    
-                    <label for="planAmount" class="required">Amount</label>
-                    <input type="number" class="planAmount" min="0" step="0.01" required placeholder="0">
-                    
-                    <label for="planCurrency" class="required">Currency</label>
-                    <input type="text" class="planCurrency" pattern="^[A-Z]{3}$" maxlength="3" required placeholder="USD">
-                    
-                    <label for="planFrequency" class="required">Frequency</label>
-                    <select class="planFrequency" required>
-                        <option value="">Select Frequency</option>
-                        <option value="one-time">One-time</option>
-                        <option value="weekly">Weekly</option>
-                        <option value="fortnightly">Fortnightly</option>
-                        <option value="monthly">Monthly</option>
-                        <option value="yearly">Yearly</option>
-                        <option value="other">Other</option>
-                    </select>
-    
-                    <label for="planChannels" class="required">Channel GUIDs (comma-separated)</label>
-                    <input type="text" class="planChannels" required>
+                <h3>Plan</h3>
+                <label for="planGuid" class="required">GUID</label>
+                <input type="text" class="planGuid" maxlength="32" pattern="^[a-z0-9-]+$" required placeholder="mybank, paypal">
+                
+                <label for="planStatus" class="required">Status</label>
+                <select class="planStatus" required>
+                    <option value="">Select Status</option>
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                </select>
+
+                <label for="planName" class="required">Name</label>
+                <input type="text" class="planName" required placeholder="Starter support plan, Infra hosting, Monthly funding plan">
+                
+                <label for="planDescription">Description</label>
+                <textarea class="planDescription" placeholder="Additional description or instructions for the funding plan"></textarea>
+                
+                <label for="planAmount" class="required">Amount</label>
+                <input type="number" class="planAmount" min="0" step="0.01" required placeholder="0">
+                
+                <label for="planCurrency" class="required">Currency</label>
+                <input type="text" class="planCurrency" pattern="^[A-Z]{3}$" maxlength="3" required placeholder="USD">
+                
+                <label for="planFrequency" class="required">Frequency</label>
+                <select class="planFrequency" required>
+                    <option value="">Select Frequency</option>
+                    <option value="one-time">One-time</option>
+                    <option value="weekly">Weekly</option>
+                    <option value="fortnightly">Fortnightly</option>
+                    <option value="monthly">Monthly</option>
+                    <option value="yearly">Yearly</option>
+                    <option value="other">Other</option>
+                </select>
+
+                <label for="planChannels" class="required">Channel GUIDs (comma-separated)</label>
+                <input type="text" class="planChannels" required>
             `;
             container.appendChild(newPlan);
         }
@@ -439,7 +440,6 @@
         });
 
         window.addEventListener('load', function() {
-            console.log("hello");
             addFundingChannel();
             addFundingPlan();
         });
