@@ -57,6 +57,17 @@
             background-color: #696969;
             margin-top: 0px;
         }
+        button.ghost {
+            background-color: transparent;
+            color: #aeaeae;
+            width: fit-content;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+        button.ghost:hover {
+            background-color: #aeaeae;
+            color: white;
+        }
         pre {
             padding: 10px;
             background-color: #eee;
@@ -101,6 +112,16 @@
             margin-top: -5px;
             margin-bottom: 10px;
         }
+        .removableEntityHeader {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px 0 20px 0;
+            align-items: center;
+        }
+        .removableEntityHeader > * {
+            margin: 0;
+        }
+
         @media (max-width: 768px) {
             .container {
                 flex-direction: column;
@@ -215,7 +236,11 @@
             const newProject = document.createElement('div');
             newProject.classList.add('project-section');
             newProject.innerHTML = `
-                <h3>Project</h3>
+                <div class="removableEntityHeader">
+                  <h3>Project</h3>
+                  <button type="button" class="ghost remove-btn">remove</button>
+                </div>
+
                 <label for="projectGuid" class="required">GUID</label>
                 <input type="text" class="projectGuid" maxlength="32" pattern="^[a-z0-9-]+$" required placeholder="my-cool-project">
                 
@@ -243,6 +268,13 @@
                 <label for="projectTags" class="required">Tags (comma separated, up to 10)</label>
                 <input type="text" class="projectTags" required placeholder="programming, developer-tools">
             `;
+
+            // Add event listener to remove this project
+            const removeBtn = newProject.querySelector(".remove-btn");
+            removeBtn.addEventListener("click", function () {
+                container.removeChild(newProject);
+            });
+
             container.appendChild(newProject);
         }
 
@@ -252,7 +284,11 @@
             const newChannel = document.createElement('div');
             newChannel.classList.add('channel-section');
             newChannel.innerHTML = `
-                <h3>Channel</h3>
+                <div class="removableEntityHeader">
+                  <h3>Channel</h3>
+                  <button type="button" class="ghost remove-btn">remove</button>
+                </div>
+
                 <label for="fundingChannelGuid" class="required">GUID</label>
                 <input type="text" class="fundingChannelGuid" maxlength="32" pattern="^[a-z0-9-]+$" required placeholder="mybank, my-paypal">
 
@@ -272,6 +308,14 @@
                 <label for="fundingChannelDescription">Description</label>
                 <textarea class="fundingChannelDescription" maxlength="500" placeholder="Additional description or instructions for the payment channel"></textarea>
             `;
+
+            // Add event listener to remove this channel
+            const removeBtn = newChannel.querySelector(".remove-btn");
+            removeBtn.addEventListener("click", function () {
+                container.removeChild(newChannel);
+            });
+
+
             container.appendChild(newChannel);
         }
 
@@ -282,7 +326,11 @@
             const newPlan = document.createElement('div');
             newPlan.classList.add('plan-section');
             newPlan.innerHTML = `
-                <h3>Plan</h3>
+                <div class="removableEntityHeader">
+                  <h3>Plan</h3>
+                  <button type="button" class="ghost remove-btn">remove</button>
+                </div>
+
                 <label for="planGuid" class="required">GUID</label>
                 <input type="text" class="planGuid" maxlength="32" pattern="^[a-z0-9-]+$" required placeholder="mybank, paypal">
                 
@@ -319,6 +367,13 @@
                 <label for="planChannels" class="required">Channel GUIDs (comma-separated)</label>
                 <input type="text" class="planChannels" required>
             `;
+
+            // Add event listener to remove this plan 
+            const removeBtn = newPlan.querySelector(".remove-btn");
+            removeBtn.addEventListener("click", function () {
+                container.removeChild(newPlan);
+            });
+
             container.appendChild(newPlan);
         }
 
@@ -328,7 +383,11 @@
             const newHistory = document.createElement('div');
             newHistory.classList.add('history-section');
             newHistory.innerHTML = `
-                <h3>History</h3>
+                <div class="removableEntityHeader">
+                  <h3>History</h3>
+                  <button type="button" class="ghost remove-btn">remove</button>
+                </div>
+
                 <label for="historyYear" class="required">Year</label>
                 <input type="number" class="historyYear" min="1900" max="2100" required placeholder="2024">
                 
@@ -347,6 +406,13 @@
                 <label for="historyDescription">Description (optional)</label>
                 <textarea class="historyDescription" maxlength="500"></textarea>
             `;
+
+            // Add event listener to remove this history
+            const removeBtn = newHistory.querySelector(".remove-btn");
+            removeBtn.addEventListener("click", function () {
+                container.removeChild(newHistory);
+            });
+
             container.appendChild(newHistory);
         }
         
