@@ -112,13 +112,13 @@
             margin-top: -5px;
             margin-bottom: 10px;
         }
-        .removableEntityHeader {
+        .removableHeader {
             display: flex;
             justify-content: space-between;
             padding: 20px 0 20px 0;
             align-items: center;
         }
-        .removableEntityHeader > * {
+        .removableHeader > * {
             margin: 0;
         }
 
@@ -236,7 +236,7 @@
             const newProject = document.createElement('div');
             newProject.classList.add('project-section');
             newProject.innerHTML = `
-                <div class="removableEntityHeader">
+                <div class="removableHeader">
                   <h3>Project</h3>
                   <button type="button" class="ghost remove-btn">remove</button>
                 </div>
@@ -284,7 +284,7 @@
             const newChannel = document.createElement('div');
             newChannel.classList.add('channel-section');
             newChannel.innerHTML = `
-                <div class="removableEntityHeader">
+                <div class="removableHeader">
                   <h3>Channel</h3>
                   <button type="button" class="ghost remove-btn">remove</button>
                 </div>
@@ -326,7 +326,7 @@
             const newPlan = document.createElement('div');
             newPlan.classList.add('plan-section');
             newPlan.innerHTML = `
-                <div class="removableEntityHeader">
+                <div class="removableHeader">
                   <h3>Plan</h3>
                   <button type="button" class="ghost remove-btn">remove</button>
                 </div>
@@ -383,7 +383,7 @@
             const newHistory = document.createElement('div');
             newHistory.classList.add('history-section');
             newHistory.innerHTML = `
-                <div class="removableEntityHeader">
+                <div class="removableHeader">
                   <h3>History</h3>
                   <button type="button" class="ghost remove-btn">remove</button>
                 </div>
