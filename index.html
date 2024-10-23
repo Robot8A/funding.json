@@ -280,7 +280,7 @@
         }
 
         // Function to add more funding channels dynamically
-        function addFundingChannel() {
+        function addFundingChannel(showRemove = true) {
             const container = document.getElementById('fundingChannelsContainer');
             const newChannel = document.createElement('div');
             newChannel.classList.add('channel-section');
@@ -308,13 +308,18 @@
                 
                 <label for="fundingChannelDescription">Description</label>
                 <textarea class="fundingChannelDescription" maxlength="500" placeholder="Additional description or instructions for the payment channel"></textarea>
-            `;
-
-            // Add event listener to remove this channel
+                `;
+                
             const removeBtn = newChannel.querySelector(".remove-btn");
-            removeBtn.addEventListener("click", function () {
+                
+            if (showRemove) {
+                // Add event listener to remove this channel
+                removeBtn.addEventListener("click", function () {
                 container.removeChild(newChannel);
-            });
+                });
+            } else {
+                removeBtn.style.display = 'none';
+            }
 
 
             container.appendChild(newChannel);
@@ -322,7 +327,7 @@
 
 
         // Function to add more funding plans dynamically
-        function addFundingPlan() {
+        function addFundingPlan(showRemove = true) {
             const container = document.getElementById('fundingPlansContainer');
             const newPlan = document.createElement('div');
             newPlan.classList.add('plan-section');
@@ -369,11 +374,15 @@
                 <input type="text" class="planChannels" required>
             `;
 
-            // Add event listener to remove this plan 
             const removeBtn = newPlan.querySelector(".remove-btn");
-            removeBtn.addEventListener("click", function () {
-                container.removeChild(newPlan);
-            });
+            if (showRemove) {
+                // Add event listener to remove this plan 
+                removeBtn.addEventListener("click", function () {
+                    container.removeChild(newPlan);
+                });
+            } else {
+                removeBtn.style.display = 'none';
+            }
 
             container.appendChild(newPlan);
         }
@@ -507,8 +516,8 @@
         });
 
         window.addEventListener('load', function() {
-            addFundingChannel();
-            addFundingPlan();
+            addFundingChannel(false);
+            addFundingPlan(false);
         });
     </script>
 </body>
