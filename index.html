@@ -140,6 +140,131 @@
     <div class="container">
         <form id="fundingForm">
             <h1>FLOSS Fund Application Form</h1>
+
+            <!-- File Upload Button -->
+            <div class="section">
+                <label for="fileUpload"><strong>Load an existing funding.json</strong></label>
+                <input type="file" id="fileUpload" accept=".json">
+                <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    document.getElementById('fileUpload').addEventListener('change', function(event) {
+                        const file = event.target.files[0];
+                        if (!file) return;
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            try {
+                                const data = JSON.parse(e.target.result);
+
+                                // Populate Entity
+                                if (data.entity) {
+                                    document.getElementById('entityType').value = data.entity.type || '';
+                                    document.getElementById('entityRole').value = data.entity.role || '';
+                                    document.getElementById('entityName').value = data.entity.name || '';
+                                    document.getElementById('entityEmail').value = data.entity.email || '';
+                                    document.getElementById('entityPhone').value = data.entity.phone || '';
+                                    document.getElementById('entityDescription').value = data.entity.description || '';
+                                    if (data.entity.webpageUrl) {
+                                        document.getElementById('entityWebpageUrl').value = data.entity.webpageUrl.url || '';
+                                        document.getElementById('entityWebpageWellKnown').value = data.entity.webpageUrl.wellKnown || '';
+                                    }
+                                }
+
+                                // Clear and Populate Projects
+                                const projectsContainer = document.getElementById('projectsContainer');
+                                projectsContainer.innerHTML = '';
+                                if (Array.isArray(data.projects)) {
+                                    data.projects.forEach(project => {
+                                        addProject();
+                                        const section = projectsContainer.lastElementChild;
+                                        section.querySelector('.projectGuid').value = project.guid || '';
+                                        section.querySelector('.projectName').value = project.name || '';
+                                        section.querySelector('.projectDescription').value = project.description || '';
+                                        if (project.webpageUrl) {
+                                            section.querySelector('.projectWebpageUrl').value = project.webpageUrl.url || '';
+                                            section.querySelector('.projectWebpageWellKnown').value = project.webpageUrl.wellKnown || '';
+                                        }
+                                        if (project.repositoryUrl) {
+                                            section.querySelector('.projectRepositoryUrl').value = project.repositoryUrl.url || '';
+                                            section.querySelector('.projectRepositoryWellKnown').value = project.repositoryUrl.wellKnown || '';
+                                        }
+                                        section.querySelector('.projectLicenses').value = Array.isArray(project.licenses) ? project.licenses.join(', ') : '';
+                                        section.querySelector('.projectTags').value = Array.isArray(project.tags) ? project.tags.join(', ') : '';
+                                    });
+                                }
+
+                                // Clear and Populate Funding Channels
+                                const fundingChannelsContainer = document.getElementById('fundingChannelsContainer');
+                                fundingChannelsContainer.innerHTML = '';
+                                if (data.funding && Array.isArray(data.funding.channels)) {
+                                    data.funding.channels.forEach((channel, idx) => {
+                                        addFundingChannel(true);
+                                        const section = fundingChannelsContainer.lastElementChild;
+                                        section.querySelector('.fundingChannelGuid').value = channel.guid || '';
+                                        section.querySelector('.fundingChannelType').value = channel.type || '';
+                                        section.querySelector('.fundingChannelAddress').value = channel.address || '';
+                                        section.querySelector('.fundingChannelDescription').value = channel.description || '';
+                                    });
+                                    // Hide remove button for first channel if only one
+                                    if (fundingChannelsContainer.children.length === 1) {
+                                        fundingChannelsContainer.querySelector('.remove-btn').style.display = 'none';
+                                    }
+                                } else {
+                                    // Add one empty channel if none
+                                    addFundingChannel(false);
+                                }
+
+                                // Clear and Populate Funding Plans
+                                const fundingPlansContainer = document.getElementById('fundingPlansContainer');
+                                fundingPlansContainer.innerHTML = '';
+                                if (data.funding && Array.isArray(data.funding.plans)) {
+                                    data.funding.plans.forEach((plan, idx) => {
+                                        addFundingPlan(true);
+                                        const section = fundingPlansContainer.lastElementChild;
+                                        section.querySelector('.planGuid').value = plan.guid || '';
+                                        section.querySelector('.planStatus').value = plan.status || '';
+                                        section.querySelector('.planName').value = plan.name || '';
+                                        section.querySelector('.planDescription').value = plan.description || '';
+                                        section.querySelector('.planAmount').value = plan.amount != null ? plan.amount : '';
+                                        section.querySelector('.planCurrency').value = plan.currency || '';
+                                        section.querySelector('.planFrequency').value = plan.frequency || '';
+                                        section.querySelector('.planChannels').value = Array.isArray(plan.channels) ? plan.channels.join(', ') : '';
+                                    });
+                                    // Hide remove button for first plan if only one
+                                    if (fundingPlansContainer.children.length === 1) {
+                                        fundingPlansContainer.querySelector('.remove-btn').style.display = 'none';
+                                    }
+                                } else {
+                                    // Add one empty plan if none
+                                    addFundingPlan(false);
+                                }
+
+                                // Clear and Populate Funding History
+                                const fundingHistoryContainer = document.getElementById('fundingHistoryContainer');
+                                fundingHistoryContainer.innerHTML = '';
+                                if (data.funding && Array.isArray(data.funding.history)) {
+                                    data.funding.history.forEach(history => {
+                                        addFundingHistory();
+                                        const section = fundingHistoryContainer.lastElementChild;
+                                        section.querySelector('.historyYear').value = history.year || '';
+                                        section.querySelector('.historyIncome').value = history.income != null ? history.income : '';
+                                        section.querySelector('.historyExpenses').value = history.expenses != null ? history.expenses : '';
+                                        section.querySelector('.historyTaxes').value = history.taxes != null ? history.taxes : '';
+                                        section.querySelector('.historyCurrency').value = history.currency || '';
+                                        section.querySelector('.historyDescription').value = history.description || '';
+                                    });
+                                }
+
+                                // Show JSON in output
+                                document.getElementById('output').textContent = JSON.stringify(data, null, 2);
+                            } catch (err) {
+                                alert('Invalid JSON file.');
+                            }
+                        };
+                        reader.readAsText(file);
+                    });
+                });
+                </script>
+            </div>
         
             <!-- Entity Section -->
             <div class="section">
@@ -243,7 +368,7 @@
                 </div>
 
                 <label for="projectGuid" class="required">GUID</label>
-                <input type="text" class="projectGuid" maxlength="32" pattern="^[a-z0-9-]+$" required placeholder="my-cool-project">
+                <input type="text" class="projectGuid" maxlength="32" pattern="^[a-z0-9\-]+$" required placeholder="my-cool-project">
                 
                 <label for="projectName" class="required">Name</label>
                 <input type="text" class="projectName" maxlength="250" placeholder="Name of the project" required>
@@ -291,7 +416,7 @@
                 </div>
 
                 <label for="fundingChannelGuid" class="required">GUID</label>
-                <input type="text" class="fundingChannelGuid" maxlength="32" pattern="^[a-z0-9-]+$" required placeholder="mybank, my-paypal">
+                <input type="text" class="fundingChannelGuid" maxlength="32" pattern="^[a-z0-9\-]+$" required placeholder="mybank, my-paypal">
 
                 <label for="fundingChannelType" class="required">Type</label>
                 <select class="fundingChannelType" required>
@@ -338,7 +463,7 @@
                 </div>
 
                 <label for="planGuid" class="required">GUID</label>
-                <input type="text" class="planGuid" maxlength="32" pattern="^[a-z0-9-]+$" required placeholder="mybank, paypal">
+                <input type="text" class="planGuid" maxlength="32" pattern="^[a-z0-9\-]+$" required placeholder="mybank, paypal">
                 
                 <label for="planStatus" class="required">Status</label>
                 <select class="planStatus" required>
